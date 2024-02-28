@@ -1,36 +1,24 @@
 import tkinter as tk
-import sys
 
-from buttons import Plus_Button, Minus_Button
+import buttons
+from messages import dict as messages
 
-class Tally_Pie:
+class TallyPie:
     """Tally and categorize content with a dynamic pie chart."""
-    title = "Tally Pie"
-
     def __init__(self, master):
         self.master = master
-        self.master.title(self.title)
-        
-        # Floating window
-        if sys.platform == 'win32':
-            self.master.attributes("-topmost", True)
+        self.master.title(messages['app_name'])
 
-        # Counter
-        self.counter = 0
-        self.counter_label = tk.Label(self.master, text=self.counter)
-        self.counter_label.pack()
+        # Categories
+        self.cats = []
+        self.new_cat_button = buttons.NewCatButton(master, self)
+        self.new_cat_button.pack()
 
-        # Buttons
-        self.minus_button = Minus_Button(self.master, self)
-        self.minus_button.pack(side=tk.LEFT)
-        self.plus_button = Plus_Button(self.master, self)
-        self.plus_button.pack(side=tk.RIGHT)
-        
 
 def main():
     """Tally Pie's root window."""
     root = tk.Tk()
-    Tally_Pie(root)
+    TallyPie(root)
     root.mainloop()
 
 if __name__ == "__main__":
