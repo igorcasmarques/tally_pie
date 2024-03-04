@@ -1,45 +1,32 @@
 import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-import menus, widgets
-from dicts import all_labels
-menu_labels = all_labels['menus']
+from config import commands, copy, key_binds, paths
+from widgets import menus, pies, buttons, labels
+
 
 class App:
     """Tally and categorize content with a dynamic pie chart."""
     def __init__(self, master):
         self.master = master
-        self.master.title(all_labels['app_name'])
-
-        # In-memory
-        self.cats = []
-
-        # Menus
-        self.menu = menus.MainMenu(master)
-        self.file_menu = menus.FileMenu(master, self)
-        self.menu.add_menu(menu_labels['file'], self.file_menu)
-
-        # Buttons
-        self.new_cat_button = widgets.NewCatButton(master, self)
-        self.new_cat_button.grid(row=0, column=0)
-
-        # Key bindings
-        def new_cat_bind(event=None):
-            """Key binding for adding a category."""
-            self.file_menu.new_cat()
-
-        def open_file_bind(event=None):
-            """Key binding for opening a file."""
-            self.file_menu.open_file()
+        self.master.title(copy.app_name)
+        self.master.iconbitmap(paths.app_icon)
         
-        def save_file_bind(event=None):
-            """Key binding for saving a session."""
-            self.file_menu.save_file()
+        # Main attributes
+        self.cats = []
+        self.total_tally = 0
 
-        master.bind_all('<Control-n>', new_cat_bind)
-        master.bind_all('<Control-o>', open_file_bind)
-        master.bind_all('<Control-s>', save_file_bind)
+        # Widgets
+        self.menu = menus.MainMenu(master, self)
+        self.total_tally_label = labels.TotalTallyLabel(master, text=self.total_tally)
+        self.pie_chart = pies.PieChart(master)
+        self.new_pie_button = buttons.NewPieButton(master, self)
+        self.new_cat_button = buttons.NewCatButton(master, self)
+        commands.create_main_button(self)
 
-
+        # Key binds
+        key_binds.define_key_binds(master, self)        
+        
 def main():
     """Tally Pie's root window."""
     root = tk.Tk()

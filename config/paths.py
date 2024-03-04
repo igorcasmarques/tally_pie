@@ -1,0 +1,1 @@
+app_icon = "assets/app_icon.ico"

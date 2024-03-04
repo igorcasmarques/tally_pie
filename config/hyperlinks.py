@@ -1,0 +1,1 @@
+github_repo = 'https://github.com/igorcasmarques/tally_pie'

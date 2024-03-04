@@ -1,12 +1,9 @@
 import tkinter as tk
-from tkinter import messagebox
 
-import actions
-
-from dicts import all_labels
-labels = all_labels['buttons']
+from config import commands, copy
 
 
+# PARENT CLASS
 class Button(tk.Button):
     """Parent button for the app's buttons."""
     def __init__(self, master, text, command):
@@ -14,80 +11,76 @@ class Button(tk.Button):
 
 
 # TALLY BUTTONS
-
 class TallyButton(Button):
     """Parent button for the a category's tally buttons."""
     def __init__(self, master, tally, text, command):
         self.tally = tally
         super().__init__(master, text=text, command=command)
 
-
 class PlusButton(TallyButton):
     """Button that increments 1 to a tally category in the pie chart."""
     def increment_tally(self):
         self.tally.tally += 1
         self.tally.tally_label.config(text=self.tally.tally)
+        commands.update_pie_chart(app=self.tally.app)
 
     def __init__(self, master, tally):
         super().__init__(
-            master, tally, text=labels['plus'], command=self.increment_tally)
+            master, tally, text=copy.buttons['plus'], command=self.increment_tally)
         self.grid(row=0, column=2, padx=5, pady=5)
+        pale_blue = '#d0fefe'
+        self.configure(bg=pale_blue)
     
-
 class MinusButton(TallyButton):
     """Button that decrements 1 from a tally category in the pie chart."""
     def decrement_tally(self):
         if self.tally.tally > 0:
             self.tally.tally -= 1
             self.tally.tally_label.config(text=self.tally.tally)
+            commands.update_pie_chart(app=self.tally.app)
 
     def __init__(self, master, tally):
         super().__init__(
-            master, tally, text=labels['minus'], command=self.decrement_tally)
+            master, tally, text=copy.buttons['minus'], command=self.decrement_tally)
         self.grid(row=0, column=3, padx=5, pady=5)
+        pale_pink = '#ffcfdc'
+        self.configure(bg=pale_pink)
 
+
+# PIE BUTTONS
+class NewPieButton(Button):
+    """Button that creates a new pie chart."""
+    def __init__(self, master, app):
+        super().__init__(master, text=copy.buttons['new_pie'], command=self.new_pie)
+        self.app = app
+        self.grid(row=2, column=0)
+        self.configure(bg='light green', font=("Arial", 10, "bold"))
+    
+    def new_pie(self):
+        """Create a new pie chart with a button."""
+        commands.create_new_pie(self.master, self.app, button=Button)
 
 # CATEGORY BUTTONS
-        
 class NewCatButton(Button):
     """Button that adds a new tally category."""
     def __init__(self, master, app):
-        super().__init__(master, text=labels['new_cat'], command=self.new_cat)
+        super().__init__(master, text=copy.buttons['new_cat'], command=self.new_cat)
         self.app = app
+        self.grid(row=2, column=0)
+        self.configure(bg='light yellow')
 
     def new_cat(self):
         """Create a new tally category with a button."""
-        actions.new_cat(self.master, self.app, button=Button)
-    
+        commands.create_new_cat(self.master, self.app, button=Button)
+          
 class DeleteCatButton(Button):
     """Button that deletes a tally category."""
-    def __init__(self, master, cat_instance):
-        super().__init__(master, text=labels['delete_cat'], command=self.delete_cat)
-        self.cat_instance = cat_instance
+    def __init__(self, master, cat):
+        super().__init__(master, text=copy.buttons['delete_cat'], command=self.delete_cat)
+        self.cat = cat
         self.grid(row=0, column=4, padx=(5, 10), pady=5, sticky="e")
     
     def delete_cat(self):
-        """Delete the category."""
-        self.cat_instance.frame.destroy()
-        self.cat_instance.app.cats.remove(self.cat_instance)
-
-# UI ELEMENTS
- 
-class CatFrame(tk.Frame):
-    """Class for a category frame."""
-    def __init__(self, master):
-        super().__init__(master, bg="lightgray", bd=2, relief=tk.SOLID)
-        self.grid(sticky="ew")
-
-class CatLabel(tk.Label):
-    """Class for a category label."""
-    def __init__(self, master, text):
-        super().__init__(master, text=text, font=("Arial", 10, "bold"))
-        self.grid(row=0, column=0, padx=(10, 5), pady=10, sticky="w")
-
-class CatTallyLabel(tk.Label):
-    """Class for a category tally label."""
-    def __init__(self, master, text):
-        super().__init__(master, text=text)
-        self.grid(row=0, column=1, padx=5, pady=10, sticky="w")
+        """Delete a category with a button."""
+        commands.delete_cat(self, self.cat)
     
