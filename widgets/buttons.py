@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from config import commands, copy
+from config import commands, copy, paths
 
 
 # PARENT CLASS

@@ -11,21 +11,19 @@ from config import copy, shortcuts, hyperlinks
 
 def create_new_pie(master, app, button):
         """Create a new pie chart."""
-        # Checks category space and name eligibility, then opens a new window
         if app.pie_chart.title:
-            confirmation = messagebox.askyesno(
-                copy.new_pie['new_pie'], copy.new_pie['confirmation'])
-            if confirmation:
-                open_pie_window(master, app, button)
+            confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['new_pie'])
+            if confirm:
+                create_pie_window(master, app, button)
 
         elif hasattr(master, "pie_title_entry") and master.pie_title_entry.winfo_exists():
             master.pie_title_entry.focus()
             return
 
         else: 
-            open_pie_window(master, app, button)
+            create_pie_window(master, app, button)
 
-def open_pie_window(master, app, button):
+def create_pie_window(master, app, button):
     """Open a new window for users to input the name of a new pie chart."""
     new_pie_window = tk.Toplevel(master)
 
@@ -71,9 +69,68 @@ def submit_new_pie(master, app, name, window, event=None):
         messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
         name.focus()
 
+def rename_pie(master, app, button):
+    """Rename an existing pie chart."""
+    if app.pie_chart.title:
+        open_rename_window(master, app, button)
+    else:
+        create_new_pie(master, app, button)
+    
+
+def open_rename_window(master, app, button):
+    """Open a dialog box to rename a pie chart."""
+    rename_window = tk.Toplevel(master)
+    pie_title_entry = tk.Entry(rename_window)
+    master.pie_title_entry = pie_title_entry
+    pie_title_entry.pack(padx=10, pady=10)
+    pie_title_entry.focus()
+
+    change_title = lambda event=None: change_pie_title(
+    master, app, name=pie_title_entry, window=rename_window)
+    submit_button = button(
+        rename_window, text=copy.buttons['rename_pie'], command=change_title)
+    submit_button.pack(pady=5)
+
+    # Key binds
+    rename_window.bind(shortcuts.binds['submit'], change_title)
+    rename_window.bind(shortcuts.binds['cancel'], lambda event: rename_window.destroy())
+
+def change_pie_title(master, app, name, window, event=None):
+    """Change the title of a pie chart."""
+    new_pie_name = name.get()
+    if new_pie_name != "":      
+        pie_chart = app.pie_chart
+        pie_chart.title = new_pie_name
+        pie_chart.ax.set_title(new_pie_name)
+        pie_chart.canvas.draw()
+        window.destroy()
+
+    else:
+        messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
+        name.focus()
+
+def erase_pie(app):
+    """Erase an existing pie chart."""
+    pie_chart = app.pie_chart
+    cats = app.cats
+
+    if cats:
+        for cat in cats:
+            cat.frame.destroy()
+        cats.clear()
+    
+    pie_chart.ax.clear()
+    pie_chart.title = ''
+    pie_chart.ax.set_title(pie_chart.title)
+    pie_chart.ax.pie(pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
+    pie_chart.ax.axis('equal')
+    pie_chart.canvas.draw()
+
+    update_pie_chart(app)
+
 def create_new_cat(master, app, button):
-        """Create a new tally category."""
-        # Checks category space and name eligibility, then opens a new window
+    """Create a new tally category."""
+    if app.pie_chart.title:
         if len(app.cats) >= 6:
             messagebox.showwarning(copy.warning_box, copy.warnings['too_many_cats'])
             return
@@ -84,6 +141,9 @@ def create_new_cat(master, app, button):
 
         else: 
             open_cat_window(master, app, button)
+    
+    else:
+        messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
 
 
 def open_cat_window(master, app, button):
@@ -229,7 +289,7 @@ def redraw_pie_chart(app):
 
 # FILE MANAGEMENT METHODS
 
-def save_snapshot(data, filename=None):
+def save_pie(data, filename=None):
     """Save session data to a JSON file."""
     if data:
         if filename is None:
@@ -252,16 +312,30 @@ def save_snapshot(data, filename=None):
         messagebox.showwarning(copy.warning_box, copy.warnings['no_data'])
 
 
-def load_snapshot(app):
+def open_pie(master, app, button):
     """Open a file dialog to choose a file to load."""
-    filename = filedialog.askopenfilename(
-        filetypes=[("JSON files", "*.json")],
-        title="Select a file to open"
-    )
-    if filename:
-        load_file(filename, app)
-        update_pie_chart(app)
-        update_main_button(app)
+    if app.pie_chart.title:
+        confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['open_pie'])
+        if confirm:
+            create_pie_window(master, app, button)
+            filename = filedialog.askopenfilename(
+                filetypes=[("JSON files", "*.json")],
+                title="Select a file to open"
+            )
+            if filename:
+                load_file(filename, app)
+                update_pie_chart(app)
+                update_main_button(app)
+    else:
+        create_pie_window(master, app, button)
+        filename = filedialog.askopenfilename(
+            filetypes=[("JSON files", "*.json")],
+            title="Select a file to open"
+        )
+        if filename:
+            load_file(filename, app)
+            update_pie_chart(app)
+            update_main_button(app)
 
 
 def load_file(filename, app):
@@ -301,11 +375,16 @@ def load_saved_data(filename):
 
 # HELP MENU METHODS
 
+def user_manual():
+    """Send users to the app's user_manual."""
+    confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['user_manual'])
+    if confirm:
+        webbrowser.open_new(hyperlinks.user_manual)
+
 def contribute():
     """Send users to the app's GitHub repository."""
-    confirmation = messagebox.askyesno(
-        copy.contribute['contribute'], copy.contribute['confirmation'])
-    if confirmation:
+    confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['contribute'])
+    if confirm:
         webbrowser.open_new(hyperlinks.github_repo)
 
 

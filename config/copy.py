@@ -1,4 +1,5 @@
 app_name = 'Tally Pie'
+total_tally = "Total items:"
 
 menus = {
     'file': 'File',
@@ -7,8 +8,12 @@ menus = {
     'save_pie': 'Save pie chart...',
     'open_pie': 'Open pie chart...',
     'exit': 'Exit',
+    'edit': 'Edit',
+    'rename_pie': 'Rename pie chart',
+    'erase_pie': 'Erase pie chart',
     'help': 'Help',
-    'contribute': 'Contribute...',
+    'user_manual': 'User manual',
+    'contribute': 'Contribute',
     'about': 'About Tally Pie',
 }
 
@@ -17,29 +22,29 @@ accelerators = {
     'new_cat': 'Ctrl+Y',
     'save_pie': 'Ctrl+S',
     'open_pie': 'Ctrl+O',
+    'rename_pie': 'Ctrl+R',
+    'erase_pie': 'Ctrl+W',
     'exit': 'Alt+F4',
 }
-
-new_pie = {
-    'new_pie': 'Consider this',
-    'confirmation': 'Creating a new pie chart will overwrite your current work.\nAre you sure you want to continue?',
-}
-
-total_tally = "Total items:"
 
 buttons = {
     'new_pie': 'New Pie Chart',
     'new_cat': 'New Category',
     'submit_pie': 'Create pie chart',
+    'rename_pie': 'Rename pie chart',
     'submit_cat': 'Add category',
     'delete_cat': 'x',
     'plus': '+1',
     'minus': '-1',
 }
 
-contribute = {
-    'contribute': 'Thanks for your help',
-    'confirmation': 'You\'re being redirected to Tally Pie\'s GitHub repository. \nAre you sure you want to continue?',
+confirms = {
+    'confirm': 'Are you sure?',
+    'new_pie': 'Creating a new pie chart will overwrite your current work.\nAre you sure you want to continue?',
+    'open_pie': 'Opening a pie chart will overwrite your current work.\nAre you sure you want to continue?',
+    'user_manual': 'You\'re being redirected to Tally Pie\'s user manual on the web. \nAre you sure you want to continue?',
+    'contribute': 'You\'re being redirected to Tally Pie\'s GitHub repository. \nAre you sure you want to continue?',
+    'exit': 'Do you want to save your pie chart before leaving?',
 }
 
 info_box = 'Tally Pie'
@@ -54,6 +59,7 @@ info = {
 warning_box = 'Oops'
 warnings = {
     'empty_pie': 'This pie chart needs a title.',
+    'no_pie': 'Create a pie first before adding categories.',
     'repeated_cat': 'This name is taken by another category.',
     'empty_cat': 'This category needs a name.',
     'too_many_cats': 'You can only add up to six categories.',
