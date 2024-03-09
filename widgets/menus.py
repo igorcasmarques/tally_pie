@@ -28,34 +28,35 @@ class FileMenu(tk.Menu):
         super().__init__(master, tearoff=False)
         self.app = app
         self.name = 'file'
-
-        self.add_command(
+        
+        self.new_pie_chart = self.add_command(
             label=copy.menus['new_pie'], 
             command=self.new_pie,
             accelerator=copy.accelerators['new_pie']
         )
-        self.add_command(
+        self.new_category = self.add_command(
             label=copy.menus['new_cat'], 
             command=self.new_cat,
             accelerator=copy.accelerators['new_cat']
         )
         self.add_separator()
-        self.add_command(
+        self.save_pie_chart = self.add_command(
             label=copy.menus['save_pie'],
             command=self.save_pie,
             accelerator=copy.accelerators['save_pie']
         )
-        self.add_command(
+        self.open_pie_chart = self.add_command(
             label=copy.menus['open_pie'], 
             command=self.open_pie, 
             accelerator=copy.accelerators['open_pie']
         )
         self.add_separator()
-        self.add_command(
+        self.exit = self.add_command(
             label=copy.menus['exit'],
             command=master.quit,
             accelerator=copy.accelerators['exit']
         )
+        
     
     def new_pie(self):
         """Function to handle the 'New pie chart' menu item."""
@@ -67,7 +68,7 @@ class FileMenu(tk.Menu):
     
     def save_pie(self):
         """Function to handle the 'Save' menu item."""
-        commands.save_pie(data=self.app.cats)
+        commands.save_pie(title=self.app.pie_chart.title, cat_data=self.app.cats)
     
     def open_pie(self):
         """Function to handle the 'Load' menu item."""
@@ -81,12 +82,12 @@ class EditMenu(tk.Menu):
         self.app = app
         self.name = 'edit'
 
-        self.add_command(
+        self.rename_pie = self.add_command(
             label=copy.menus['rename_pie'],
             command=self.rename_pie,
             accelerator=copy.accelerators['rename_pie'],
         )
-        self.add_command(
+        self.erase_pie = self.add_command(
             label=copy.menus['erase_pie'],
             command=self.erase_pie,
             accelerator=copy.accelerators['erase_pie']
@@ -100,16 +101,26 @@ class EditMenu(tk.Menu):
         """Function to allow users to erase a pie chart."""
         commands.erase_pie(app=self.app)
 
+
 class HelpMenu(tk.Menu):
     """Class to create the Help menu."""
     def __init__(self, master):
         super().__init__(master, tearoff=False)
         self.name = 'help'
 
-        self.add_command(label=copy.menus['user_manual'], command=self.user_manual)
-        self.add_command(label=copy.menus['contribute'], command=self.contribute)
+        self.user_manual = self.add_command(
+            label=copy.menus['user_manual'],
+            command=self.user_manual
+        )
+        self.contribute = self.add_command(
+            label=copy.menus['contribute'], 
+            command=self.contribute
+        )
         self.add_separator()
-        self.add_command(label=copy.menus['about'], command=self.about)
+        self.about = self.add_command(
+            label=copy.menus['about'],
+            command=self.about
+        )
         
     def user_manual(self):
         """Function to send users to the app's user manual."""

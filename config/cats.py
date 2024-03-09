@@ -1,5 +1,3 @@
-import tkinter as tk
-
 from widgets import frames, labels, buttons
 
 class Cat:

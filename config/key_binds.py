@@ -7,7 +7,7 @@ def define_key_binds(master, app, event=None):
     key_combos = {
         shortcuts.binds['new_pie']: lambda event: commands.create_new_pie(master, app, tk.Button),
         shortcuts.binds['new_cat']: lambda event: commands.create_new_cat(master, app, tk.Button),
-        shortcuts.binds['save_pie']: lambda event: commands.save_pie(data=app.cats),
+        shortcuts.binds['save_pie']: lambda event: commands.save_pie(app.pie_chart.title, app.cats),
         shortcuts.binds['open_pie']: lambda event: commands.open_pie(master, app, tk.Button),
         shortcuts.binds['rename_pie']: lambda event: commands.rename_pie(master, app, tk.Button),
         shortcuts.binds['erase_pie']: lambda event: commands.erase_pie(app),

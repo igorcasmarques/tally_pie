@@ -1,138 +1,35 @@
-import tkinter as tk
-from tkinter import messagebox, filedialog
+from tkinter import filedialog
 import json
 import webbrowser
 
-from config.cats import Cat
-from config import copy, shortcuts, hyperlinks
+from config import dialogs, pie_changes, files, copy, hyperlinks, messages
+from widgets import buttons
 
 
-# CATEGORY METHODS
+# FILE MENU
 
+## NEW PIE CHART
 def create_new_pie(master, app, button):
         """Create a new pie chart."""
         if app.pie_chart.title:
-            confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['new_pie'])
+            confirm = messages.confirm_box('new_pie')
             if confirm:
-                create_pie_window(master, app, button)
+                dialogs.create_new_pie_dialog(master, app, button)
 
+        # Prevent other windows from opening
         elif hasattr(master, "pie_title_entry") and master.pie_title_entry.winfo_exists():
             master.pie_title_entry.focus()
             return
 
-        else: 
-            create_pie_window(master, app, button)
+        else:
+            dialogs.create_new_pie_dialog(master, app, button)
 
-def create_pie_window(master, app, button):
-    """Open a new window for users to input the name of a new pie chart."""
-    new_pie_window = tk.Toplevel(master)
-
-    # Entry field
-    pie_title_entry = tk.Entry(new_pie_window)
-    master.pie_title_entry = pie_title_entry
-    pie_title_entry.pack(padx=10, pady=10)
-    pie_title_entry.focus()
-
-    # Submit button
-    submit_pie = lambda event=None: submit_new_pie(
-        master, app, name=pie_title_entry, window=new_pie_window)
-    submit_button = button(
-        new_pie_window, text=copy.buttons['submit_pie'], command=submit_pie)
-    submit_button.pack(pady=5)
-
-    # Key binds
-    new_pie_window.bind(shortcuts.binds['submit'], submit_pie)
-    new_pie_window.bind(shortcuts.binds['cancel'], lambda event: new_pie_window.destroy())
-
-
-def submit_new_pie(master, app, name, window, event=None):
-    """Submit a newly created category from the new category window."""
-    new_pie_name = name.get()
-    if new_pie_name != "":
-        cats = app.cats
-        if cats:
-            for cat in cats:
-                cat.frame.destroy()
-            cats.clear()
-        
-        pie_chart = app.pie_chart
-        pie_chart.ax.clear()
-        pie_chart.title = new_pie_name
-        pie_chart.ax.set_title(new_pie_name)
-        pie_chart.ax.pie(pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
-        pie_chart.ax.axis('equal')
-        pie_chart.canvas.draw()
-        window.destroy()
-        update_main_button(app)
-
-    else:
-        messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
-        name.focus()
-
-def rename_pie(master, app, button):
-    """Rename an existing pie chart."""
-    if app.pie_chart.title:
-        open_rename_window(master, app, button)
-    else:
-        create_new_pie(master, app, button)
-    
-
-def open_rename_window(master, app, button):
-    """Open a dialog box to rename a pie chart."""
-    rename_window = tk.Toplevel(master)
-    pie_title_entry = tk.Entry(rename_window)
-    master.pie_title_entry = pie_title_entry
-    pie_title_entry.pack(padx=10, pady=10)
-    pie_title_entry.focus()
-
-    change_title = lambda event=None: change_pie_title(
-    master, app, name=pie_title_entry, window=rename_window)
-    submit_button = button(
-        rename_window, text=copy.buttons['rename_pie'], command=change_title)
-    submit_button.pack(pady=5)
-
-    # Key binds
-    rename_window.bind(shortcuts.binds['submit'], change_title)
-    rename_window.bind(shortcuts.binds['cancel'], lambda event: rename_window.destroy())
-
-def change_pie_title(master, app, name, window, event=None):
-    """Change the title of a pie chart."""
-    new_pie_name = name.get()
-    if new_pie_name != "":      
-        pie_chart = app.pie_chart
-        pie_chart.title = new_pie_name
-        pie_chart.ax.set_title(new_pie_name)
-        pie_chart.canvas.draw()
-        window.destroy()
-
-    else:
-        messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
-        name.focus()
-
-def erase_pie(app):
-    """Erase an existing pie chart."""
-    pie_chart = app.pie_chart
-    cats = app.cats
-
-    if cats:
-        for cat in cats:
-            cat.frame.destroy()
-        cats.clear()
-    
-    pie_chart.ax.clear()
-    pie_chart.title = ''
-    pie_chart.ax.set_title(pie_chart.title)
-    pie_chart.ax.pie(pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
-    pie_chart.ax.axis('equal')
-    pie_chart.canvas.draw()
-
-    update_pie_chart(app)
-
+## NEW CATEGORY
 def create_new_cat(master, app, button):
     """Create a new tally category."""
     if app.pie_chart.title:
         if len(app.cats) >= 6:
-            messagebox.showwarning(copy.warning_box, copy.warnings['too_many_cats'])
+            messages.warning_box('too_many_cats')
             return
 
         elif hasattr(master, "cat_name_entry") and master.cat_name_entry.winfo_exists():
@@ -140,256 +37,76 @@ def create_new_cat(master, app, button):
             return
 
         else: 
-            open_cat_window(master, app, button)
-    
-    else:
-        messagebox.showwarning(copy.warning_box, copy.warnings['empty_pie'])
-
-
-def open_cat_window(master, app, button):
-    """Open a new window for users to input the name of a new tally category."""
-    new_cat_window = tk.Toplevel(master)
-
-    # Entry field
-    cat_name_entry = tk.Entry(new_cat_window)
-    master.cat_name_entry = cat_name_entry
-    cat_name_entry.pack(padx=10, pady=10)
-    cat_name_entry.focus()
-
-    # Submit button
-    submit_cat = lambda event=None: submit_new_cat(
-        master, app, name=cat_name_entry, window=new_cat_window)
-    submit_button = button(
-        new_cat_window, text=copy.buttons['submit_cat'], command=submit_cat)
-    submit_button.pack(pady=5)
-
-    # Key binds
-    new_cat_window.bind(
-        shortcuts.binds['submit'], submit_cat)
-    new_cat_window.bind(
-        shortcuts.binds['cancel'], lambda event: new_cat_window.destroy())
-
-
-def submit_new_cat(master, app, name, window, event=None):
-    """Submit a newly created category from the new category window."""
-    new_cat_name = name.get()
-    if new_cat_name != "":
-        if all(cat.cat_name != new_cat_name for cat in app.cats):
-            new_cat = Cat(master, app)
-            new_cat.cat_name = new_cat_name
-            app.cats.append(new_cat)
-            new_cat.label.config(text=new_cat_name)
-            window.destroy()
-            update_new_cat_button(app)
-        else:
-            messagebox.showwarning(copy.warning_box, copy.warnings['repeated_cat'])
-            name.focus()
-    else:
-        messagebox.showwarning(copy.warning_box, copy.warnings['empty_cat'])
-        name.focus()
-
-
-def delete_cat(self, cat):
-    """Delete a tally category."""
-    app = self.cat.app
-    self.cat.frame.destroy()
-    app.cats.remove(self.cat)
-    update_new_cat_button(app)
-    update_pie_chart(app)
-    if len(app.cats) == 0:
-        pie_chart = app.pie_chart
-        pie_chart.ax.clear()
-        pie_chart.title = ''
-        pie_chart.ax.set_title(pie_chart.title)
-        pie_chart.ax.pie(pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
-        pie_chart.ax.axis('equal')
-        pie_chart.canvas.draw()
-        update_main_button(app)
-
-
-
-# WIDGET METHODS
-def create_main_button(app):
-    """Choose the main button on the app's startup."""
-    app.new_cat_button.grid_forget()
-    app.new_pie_button.grid(row=2, column=0)
-
-def update_main_button(app):
-    """Determine which button should be shown below the pie chart."""
-    if app.pie_chart.title:
-        app.new_pie_button.grid_forget()
-        app.new_cat_button.grid(row=2, column=0)
-    else:
-        app.new_cat_button.grid_forget()
-        app.new_pie_button.grid(row=2, column=0)
-
-def update_new_cat_button(app):
-    """Set the visibility of the new_cat button."""
-    if len(app.cats) >= 6:
-        app.new_cat_button.grid_forget()
-    else:
-        app.new_cat_button.grid(row=2, column=0)
-
-
-def update_pie_chart(app):
-    """Update the pie chart each time a category is tallied up or down."""
-    recalculate_total_tally(app)
-    recalculate_tally_percentages(app)
-    redraw_pie_chart(app)
-    update_main_button(app)
-
-
-def recalculate_total_tally(app):
-    """Update the total tally of the app."""
-    app.total_tally = sum(cat.tally for cat in app.cats)
-    app.total_tally_label.config(text=f"{copy.total_tally} {app.total_tally}")
-
-
-def recalculate_tally_percentages(app):
-    """Update the tally percentages of all category."""
-    if app.total_tally != 0:
-        for cat in app.cats:
-            cat.tally_percent = 100 * (cat.tally / app.total_tally)
-
-
-def redraw_pie_chart(app):
-    """Redraw the pie chart each time a category is tallied up or down."""
-    pie_chart = app.pie_chart
-    title = pie_chart.title
-    pie_chart_labels = []
-    pie_chart_sizes = []
-    
-    # Reset pie chart
-    if app.total_tally == 0:
-        pie_chart.ax.clear()
-        pie_chart.ax.set_title(title)
-        pie_chart.ax.pie(pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
-        pie_chart.ax.axis('equal')
-        pie_chart.canvas.draw()
-        return
-
-    # Redraw pie chart
-    for cat in app.cats:
-        if cat.tally != 0:
-            pie_chart_labels.append(cat.cat_name)
-            pie_chart_sizes.append(cat.tally_percent)
-
-    pie_chart.ax.clear()
-    if app.cats:
-        pie_chart.ax.pie(
-            pie_chart_sizes, labels=pie_chart_labels, autopct='%1.1f%%', startangle=90)
-    else:
-        pie_chart.ax.pie(
-            pie_chart.sizes, labels=pie_chart.labels, autopct='', startangle=90)
-    pie_chart.ax.axis('equal')
-    pie_chart.ax.set_title(title)
-    pie_chart.canvas.draw()
-
-
-
-# FILE MANAGEMENT METHODS
-
-def save_pie(data, filename=None):
-    """Save session data to a JSON file."""
-    if data:
-        if filename is None:
-            filename = filedialog.asksaveasfilename(
-                defaultextension=".json", 
-                filetypes=[("JSON files", "*.json")]
+            dialogs.create_entry_dialog(master, app, button,
+                command=dialogs.submit_new_cat,
+                label=copy.box_labels['new_cat'],
+                text='submit_cat'
             )
-            if not filename:
-                return
-
-        save_data = [
-            {'cat_name': cat.cat_name, 'tally': cat.tally} 
-            for cat in data
-        ]
-
-        with open(filename, 'w') as f:
-            json.dump(save_data, f, indent=4)
     
     else:
-        messagebox.showwarning(copy.warning_box, copy.warnings['no_data'])
+        messages.warning_box('empty_pie')
 
+## SAVE PIE
+def save_pie(title, cat_data, filename=None):
+    """Save a pie chart to a JSON file."""
+    if title and cat_data:
+        files.save_file(title, cat_data, filename=None)
+    else:
+        messages.warning_box('no_data')
 
+## OPEN PIE
 def open_pie(master, app, button):
     """Open a file dialog to choose a file to load."""
     if app.pie_chart.title:
-        confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['open_pie'])
+        confirm = messages.confirm_box('open_pie')
         if confirm:
-            create_pie_window(master, app, button)
-            filename = filedialog.askopenfilename(
-                filetypes=[("JSON files", "*.json")],
-                title="Select a file to open"
-            )
-            if filename:
-                load_file(filename, app)
-                update_pie_chart(app)
-                update_main_button(app)
+            files.load_pie_chart(app)
     else:
-        create_pie_window(master, app, button)
-        filename = filedialog.askopenfilename(
-            filetypes=[("JSON files", "*.json")],
-            title="Select a file to open"
+        files.load_pie_chart(app)
+
+
+# EDIT MENU
+
+## RENAME PIE
+def rename_pie(master, app, button):
+    """Rename an existing pie chart."""
+    if app.pie_chart.title:
+        dialogs.create_entry_dialog(master, app, button,
+            command=pie_changes.change_title,
+            label=copy.box_labels['rename_pie'],
+            text='rename_pie'
         )
-        if filename:
-            load_file(filename, app)
-            update_pie_chart(app)
-            update_main_button(app)
+    else:
+        create_new_pie(master, app, button)
+    
+## ERASE PIE
+def erase_pie(app):
+    """Erase an existing pie chart."""
+    confirm = messages.confirm_box('erase_pie')
+    if confirm:
+        pie_changes.reset_pie(app)
+        pie_changes.update_pie_chart(app)
 
 
-def load_file(filename, app):
-    """Load saved data from a JSON file and update the application state."""
-    data = load_saved_data(filename)
-    if data is not None:
-        # Clear current session
-        if app.cats:
-            for cat in app.cats:
-                cat.frame.destroy()
-            app.cats.clear()
+# HELP MENU
 
-        # Load the existing session
-        for cat_data in data:
-            cat = Cat(app.master, app)
-            cat.cat_name = cat_data['cat_name']
-            cat.tally = cat_data['tally']
-            cat.label.config(text=cat.cat_name)
-            cat.tally_label.config(text=cat.tally)
-            app.cats.append(cat)
-
-
-def load_saved_data(filename):
-    """Load session data from a JSON file."""
-    try:
-        with open(filename, 'r') as f:
-            data = json.load(f)
-        return data
-
-    except FileNotFoundError:
-        messagebox.showerror(copy.error_box, copy.errors['not_found'])
-        return None
-    except json.JSONDecodeError:
-        messagebox.showerror(copy.error_box, copy.errors['not_json'])
-        return None
-
-
-# HELP MENU METHODS
-
+## USER MANUAL
 def user_manual():
     """Send users to the app's user_manual."""
-    confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['user_manual'])
+    confirm = messages.confirm_box('user_manual')
     if confirm:
         webbrowser.open_new(hyperlinks.user_manual)
 
+## CONTRIBUTE
 def contribute():
     """Send users to the app's GitHub repository."""
-    confirm = messagebox.askyesno(copy.confirms['confirm'], copy.confirms['contribute'])
+    confirm = messages.confirm_box('contribute')
     if confirm:
         webbrowser.open_new(hyperlinks.github_repo)
 
-
+## ABOUT
 def about():
-    """Open a new window to inform users about Tally Pie."""
+    """Open a new window to inform users about Tally Pie's current version."""
     line_break = '\n'
     about_message = ''
     values = list(copy.info.values())
@@ -401,4 +118,19 @@ def about():
             line_content = value + line_break
             about_message += line_content
     
-    about_window = messagebox.showinfo(copy.info_box, about_message)
+    messages.info_box(about_message)
+
+
+# BUTTONS
+
+## DELETE CATEGORY
+def delete_cat(self, cat):
+    """Delete a tally category."""
+    app = self.cat.app
+    self.cat.frame.destroy()
+    app.cats.remove(self.cat)
+    buttons.update_new_cat_button(app)
+    pie_changes.update_pie_chart(app)
+    if len(app.cats) == 0:
+        pie_changes.reset_pie(app)
+        buttons.update_main_button(app)

@@ -12,8 +12,8 @@ menus = {
     'rename_pie': 'Rename pie chart',
     'erase_pie': 'Erase pie chart',
     'help': 'Help',
-    'user_manual': 'User manual',
-    'contribute': 'Contribute',
+    'user_manual': 'User manual...',
+    'contribute': 'Contribute...',
     'about': 'About Tally Pie',
 }
 
@@ -40,11 +40,19 @@ buttons = {
 
 confirms = {
     'confirm': 'Are you sure?',
-    'new_pie': 'Creating a new pie chart will overwrite your current work.\nAre you sure you want to continue?',
-    'open_pie': 'Opening a pie chart will overwrite your current work.\nAre you sure you want to continue?',
-    'user_manual': 'You\'re being redirected to Tally Pie\'s user manual on the web. \nAre you sure you want to continue?',
-    'contribute': 'You\'re being redirected to Tally Pie\'s GitHub repository. \nAre you sure you want to continue?',
+    'are_you_sure': '\nAre you sure you want to continue?',
+    'new_pie': 'Creating a new pie chart will overwrite your current work.',
+    'open_pie': 'Opening a pie chart will overwrite your current work.',
+    'erase_pie': 'This will erase your pie chart.',
+    'user_manual': 'You\'re being redirected to Tally Pie\'s user manual on the web.',
+    'contribute': 'You\'re being redirected to Tally Pie\'s GitHub repository.',
     'exit': 'Do you want to save your pie chart before leaving?',
+}
+
+box_labels = {
+    'new_pie': 'Give your new pie chart a title.\nMax. length: 25 characters',
+    'new_cat': 'Give your new category a name.\nMax. length: 25 characters',
+    'rename_pie': 'Rename the title of your pie chart.\nMax. length: 25 characters',
 }
 
 info_box = 'Tally Pie'
@@ -53,13 +61,15 @@ info = {
     'uses': 'You can use Tally Pie to count household objects, poll your friends\' opinions, analyze content on your social media, and much more.',
     'version': 'Version: 0.1.0 (Pre-Alpha)',
     'licence': 'Licence: GNU General Public License v3.0',
-    'author': 'Author: Igor Coelho A. S. Marques',
+    'author': 'Developed by Mudpuppy (Ottawa, Canada)',
 }
 
 warning_box = 'Oops'
 warnings = {
     'empty_pie': 'This pie chart needs a title.',
+    'too_long_pie': 'The pie chart title cannot exceed 25 characters.',
     'no_pie': 'Create a pie first before adding categories.',
+    'too_long_cat': 'The category name cannot exceed 25 characters.',
     'repeated_cat': 'This name is taken by another category.',
     'empty_cat': 'This category needs a name.',
     'too_many_cats': 'You can only add up to six categories.',
