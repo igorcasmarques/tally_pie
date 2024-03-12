@@ -34,11 +34,6 @@ class FileMenu(tk.Menu):
             command=self.new_pie,
             accelerator=copy.accelerators['new_pie']
         )
-        self.new_category = self.add_command(
-            label=copy.menus['new_cat'], 
-            command=self.new_cat,
-            accelerator=copy.accelerators['new_cat']
-        )
         self.add_separator()
         self.save_pie_chart = self.add_command(
             label=copy.menus['save_pie'],
@@ -62,10 +57,6 @@ class FileMenu(tk.Menu):
         """Function to handle the 'New pie chart' menu item."""
         commands.create_new_pie(master=self.master, app=self.app, button=tk.Button)
     
-    def new_cat(self):
-        """Function to handle the 'New category' menu item."""
-        commands.create_new_cat(master=self.master, app=self.app, button=tk.Button)
-    
     def save_pie(self):
         """Function to handle the 'Save' menu item."""
         commands.save_pie(title=self.app.pie_chart.title, cat_data=self.app.cats)
@@ -82,6 +73,12 @@ class EditMenu(tk.Menu):
         self.app = app
         self.name = 'edit'
 
+        self.new_category = self.add_command(
+            label=copy.menus['new_cat'], 
+            command=self.new_cat,
+            accelerator=copy.accelerators['new_cat']
+        )
+        self.add_separator()
         self.rename_pie = self.add_command(
             label=copy.menus['rename_pie'],
             command=self.rename_pie,
@@ -93,6 +90,10 @@ class EditMenu(tk.Menu):
             accelerator=copy.accelerators['erase_pie']
         )
 
+    def new_cat(self):
+        """Function to handle the 'New category' menu item."""
+        commands.create_new_cat(master=self.master, app=self.app, button=tk.Button)
+    
     def rename_pie(self):
         """Function to allow users to rename the current pie chart."""
         commands.rename_pie(master=self.master, app=self.app, button=tk.Button)
@@ -108,13 +109,9 @@ class HelpMenu(tk.Menu):
         super().__init__(master, tearoff=False)
         self.name = 'help'
 
-        self.user_manual = self.add_command(
-            label=copy.menus['user_manual'],
-            command=self.user_manual
-        )
-        self.contribute = self.add_command(
-            label=copy.menus['contribute'], 
-            command=self.contribute
+        self.user_guide = self.add_command(
+            label=copy.menus['user_guide'],
+            command=self.user_guide
         )
         self.add_separator()
         self.about = self.add_command(
@@ -122,13 +119,9 @@ class HelpMenu(tk.Menu):
             command=self.about
         )
         
-    def user_manual(self):
-        """Function to send users to the app's user manual."""
-        commands.user_manual()
-    
-    def contribute(self):
-        """Function to send users to the app's GitHub repository."""
-        commands.contribute()
+    def user_guide(self):
+        """Function to send users to the app's user guide."""
+        commands.user_guide()
 
     def about(self):
         """Function to handle the 'About' menu item."""

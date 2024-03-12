@@ -1,17 +1,17 @@
 import tkinter as tk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from config import copy, key_binds, paths
+from config import base, key_binds, paths, dialogs
 from widgets import menus, pies, buttons, labels
 
 
 class App:
-    """Tally and categorize content with a dynamic pie chart."""
+    """Count and categorize content with a dynamic pie chart."""
     def __init__(self, master):
         self.master = master
-        self.master.title(copy.app_name)
-        self.master.iconbitmap(paths.app_icon)
-        
+        dialogs.float_window(self.master)
+        self.master.title(base.app_name)
+        self.master.iconbitmap(paths.app_icon)       
+               
         # Main attributes
         self.cats = []
         self.total_tally = 0

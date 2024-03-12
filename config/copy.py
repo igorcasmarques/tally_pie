@@ -1,25 +1,26 @@
-app_name = 'Tally Pie'
+from config import base
+
+
 total_tally = "Total items:"
 
 menus = {
     'file': 'File',
-    'new_pie': 'New pie chart',
-    'new_cat': 'New category',
-    'save_pie': 'Save pie chart...',
-    'open_pie': 'Open pie chart...',
+    'new_pie': 'New',
+    'new_cat': 'Add slice',
+    'save_pie': 'Save',
+    'open_pie': 'Open',
     'exit': 'Exit',
     'edit': 'Edit',
-    'rename_pie': 'Rename pie chart',
-    'erase_pie': 'Erase pie chart',
+    'rename_pie': 'Rename pie',
+    'erase_pie': 'Erase pie',
     'help': 'Help',
-    'user_manual': 'User manual...',
-    'contribute': 'Contribute...',
-    'about': 'About Tally Pie',
+    'user_guide': 'User guide',
+    'about': 'About',
 }
 
 accelerators = {
     'new_pie': 'Ctrl+N',
-    'new_cat': 'Ctrl+Y',
+    'new_cat': 'Ctrl+L',
     'save_pie': 'Ctrl+S',
     'open_pie': 'Ctrl+O',
     'rename_pie': 'Ctrl+R',
@@ -28,11 +29,11 @@ accelerators = {
 }
 
 buttons = {
-    'new_pie': 'New Pie Chart',
-    'new_cat': 'New Category',
-    'submit_pie': 'Create pie chart',
-    'rename_pie': 'Rename pie chart',
-    'submit_cat': 'Add category',
+    'new_pie': 'New Pie',
+    'new_cat': 'Add Slice',
+    'submit_pie': 'Create pie',
+    'rename_pie': 'Rename pie',
+    'submit_cat': 'Add slice',
     'delete_cat': 'x',
     'plus': '+1',
     'minus': '-1',
@@ -44,22 +45,22 @@ confirms = {
     'new_pie': 'Creating a new pie chart will overwrite your current work.',
     'open_pie': 'Opening a pie chart will overwrite your current work.',
     'erase_pie': 'This will erase your pie chart.',
-    'user_manual': 'You\'re being redirected to Tally Pie\'s user manual on the web.',
-    'contribute': 'You\'re being redirected to Tally Pie\'s GitHub repository.',
+    'user_guide': 'You\'re being redirected to Tally Pie\'s user guide on the web.',
     'exit': 'Do you want to save your pie chart before leaving?',
 }
 
 box_labels = {
-    'new_pie': 'Give your new pie chart a title.\nMax. length: 25 characters',
-    'new_cat': 'Give your new category a name.\nMax. length: 25 characters',
-    'rename_pie': 'Rename the title of your pie chart.\nMax. length: 25 characters',
+    'max_length': '\nMax. length: 25 characters',
+    'new_pie': 'Give your new pie chart a title.',
+    'new_cat': 'Give your new slice a name.',
+    'rename_pie': 'Rename the title of your pie chart.',
 }
 
 info_box = 'Tally Pie'
 info = {
-    'about': 'Tally Pie is a simple app to tally and categorize content with a dynamic pie chart.',
-    'uses': 'You can use Tally Pie to count household objects, poll your friends\' opinions, analyze content on your social media, and much more.',
-    'version': 'Version: 0.1.0 (Pre-Alpha)',
+    'about': f'Tally Pie is a {base.app_description.lower()}',
+    'uses': 'Tally Pie is great for ad hoc surveys. You can use it to count household objects, poll your friends\' opinions, analyze content on your social media, and much more.',
+    'version': f'Version: {base.version_number} (Alpha)',
     'licence': 'Licence: GNU General Public License v3.0',
     'author': 'Developed by Mudpuppy (Ottawa, Canada)',
 }
@@ -67,12 +68,10 @@ info = {
 warning_box = 'Oops'
 warnings = {
     'empty_pie': 'This pie chart needs a title.',
-    'too_long_pie': 'The pie chart title cannot exceed 25 characters.',
-    'no_pie': 'Create a pie first before adding categories.',
-    'too_long_cat': 'The category name cannot exceed 25 characters.',
-    'repeated_cat': 'This name is taken by another category.',
-    'empty_cat': 'This category needs a name.',
-    'too_many_cats': 'You can only add up to six categories.',
+    'too_long': 'This name cannot exceed 25 characters.',
+    'repeated_cat': 'This name is taken by another slice.',
+    'empty_cat': 'This slice needs a name.',
+    'too_many_cats': 'You can only add up to six slices.',
     'no_data': 'There is no data to save yet. Add some content before saving.',
 }
 

@@ -1,5 +1,3 @@
-from tkinter import filedialog
-import json
 import webbrowser
 
 from config import dialogs, pie_changes, files, copy, hyperlinks, messages
@@ -39,7 +37,7 @@ def create_new_cat(master, app, button):
         else: 
             dialogs.create_entry_dialog(master, app, button,
                 command=dialogs.submit_new_cat,
-                label=copy.box_labels['new_cat'],
+                label=dialogs.choose_dialog_label('new_cat'),
                 text='submit_cat'
             )
     
@@ -73,7 +71,7 @@ def rename_pie(master, app, button):
     if app.pie_chart.title:
         dialogs.create_entry_dialog(master, app, button,
             command=pie_changes.change_title,
-            label=copy.box_labels['rename_pie'],
+            label=dialogs.choose_dialog_label('rename_pie'),
             text='rename_pie'
         )
     else:
@@ -90,19 +88,12 @@ def erase_pie(app):
 
 # HELP MENU
 
-## USER MANUAL
-def user_manual():
-    """Send users to the app's user_manual."""
-    confirm = messages.confirm_box('user_manual')
+## USER GUIDE
+def user_guide():
+    """Send users to the app's user guide."""
+    confirm = messages.confirm_box('user_guide')
     if confirm:
-        webbrowser.open_new(hyperlinks.user_manual)
-
-## CONTRIBUTE
-def contribute():
-    """Send users to the app's GitHub repository."""
-    confirm = messages.confirm_box('contribute')
-    if confirm:
-        webbrowser.open_new(hyperlinks.github_repo)
+        webbrowser.open_new(hyperlinks.user_guide)
 
 ## ABOUT
 def about():

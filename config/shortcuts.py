@@ -1,6 +1,6 @@
 binds = {
     'new_pie': '<Control-n>',
-    'new_cat': '<Control-y>',
+    'new_cat': '<Control-l>',
     'save_pie': '<Control-s>',
     'open_pie': '<Control-o>',
     'rename_pie': '<Control-r>',
