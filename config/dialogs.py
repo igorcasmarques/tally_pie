@@ -1,8 +1,8 @@
 import tkinter as tk
 import sys
 
-from config.cats import Cat
 from config import copy, shortcuts, messages, pie_changes, paths
+from widgets.wedges import Wedge
 from widgets import buttons
 
 
@@ -65,7 +65,7 @@ def create_window_binds(app, window, submit):
 # SUBMISSION METHODS
 
 def submit_new_pie(master, app, name, window, event=None):
-    """Submit a newly created category from the new category window."""
+    """Submit a newly created wedge."""
     new_pie_name = name.get()
 
     if new_pie_name == '':
@@ -82,28 +82,28 @@ def submit_new_pie(master, app, name, window, event=None):
         buttons.update_main_button(app)
 
 
-def submit_new_cat(master, app, name, window, event=None):
-    """Submit a newly created category from the new category window."""
-    new_cat_name = name.get()
+def submit_new_wedge(master, app, name, window, event=None):
+    """Submit a newly created wedge."""
+    new_wedge_name = name.get()
 
-    if new_cat_name == '':
-        messages.warning_box('empty_cat')
+    if new_wedge_name == '':
+        messages.warning_box('empty_wedge')
         name.focus()
 
-    elif len(new_cat_name) > 25:
+    elif len(new_wedge_name) > 25:
         messages.warning_box('too_long')
         name.focus()
 
     else:
-        if all(cat.cat_name != new_cat_name for cat in app.cats):
-            new_cat = Cat(master, app)
-            new_cat.cat_name = new_cat_name
-            app.cats.append(new_cat)
-            new_cat.label.config(text=new_cat_name)
+        if all(wedge.name != new_wedge_name for wedge in app.wedges):
+            new_wedge = Wedge(master, app)
+            new_wedge.name = new_wedge_name
+            app.wedges.append(new_wedge)
+            new_wedge.label.config(text=new_wedge_name)
             destroy_window(app, window)
-            buttons.update_new_cat_button(app)
+            buttons.update_new_wedge_button(app)
         else:
-            messages.warning_box('repeated_cat')
+            messages.warning_box('repeated_wedge')
             name.focus()
 
 

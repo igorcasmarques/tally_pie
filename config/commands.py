@@ -22,33 +22,11 @@ def create_new_pie(master, app, button):
         else:
             dialogs.create_new_pie_dialog(master, app, button)
 
-## NEW CATEGORY
-def create_new_cat(master, app, button):
-    """Create a new tally category."""
-    if app.pie_chart.title:
-        if len(app.cats) >= 6:
-            messages.warning_box('too_many_cats')
-            return
-
-        elif hasattr(master, "cat_name_entry") and master.cat_name_entry.winfo_exists():
-            master.cat_name_entry.focus()
-            return
-
-        else: 
-            dialogs.create_entry_dialog(master, app, button,
-                command=dialogs.submit_new_cat,
-                label=dialogs.choose_dialog_label('new_cat'),
-                text='submit_cat'
-            )
-    
-    else:
-        messages.warning_box('empty_pie')
-
 ## SAVE PIE
-def save_pie(title, cat_data, filename=None):
+def save_pie(title, wedge_data, filename=None):
     """Save a pie chart to a JSON file."""
-    if title and cat_data:
-        files.save_file(title, cat_data, filename=None)
+    if title and wedge_data:
+        files.save_file(title, wedge_data, filename=None)
     else:
         messages.warning_box('no_data')
 
@@ -64,6 +42,28 @@ def open_pie(master, app, button):
 
 
 # EDIT MENU
+
+## NEW WEDGE
+def create_new_wedge(master, app, button):
+    """Create a new wedge."""
+    if app.pie_chart.title:
+        if len(app.wedges) >= 6:
+            messages.warning_box('too_many_wedges')
+            return
+
+        elif hasattr(master, "wedge_name_entry") and master.wedge_name_entry.winfo_exists():
+            master.wedge_name_entry.focus()
+            return
+
+        else: 
+            dialogs.create_entry_dialog(master, app, button,
+                command=dialogs.submit_new_wedge,
+                label=dialogs.choose_dialog_label('new_wedge'),
+                text='submit_wedge'
+            )
+    
+    else:
+        messages.warning_box('empty_pie')
 
 ## RENAME PIE
 def rename_pie(master, app, button):
@@ -114,14 +114,14 @@ def about():
 
 # BUTTONS
 
-## DELETE CATEGORY
-def delete_cat(self, cat):
-    """Delete a tally category."""
-    app = self.cat.app
-    self.cat.frame.destroy()
-    app.cats.remove(self.cat)
-    buttons.update_new_cat_button(app)
+## DELETE WEDGE
+def delete_wedge(self, wedge):
+    """Delete a wedge."""
+    app = self.wedge.app
+    self.wedge.frame.destroy()
+    app.wedges.remove(self.wedge)
+    buttons.update_new_wedge_button(app)
     pie_changes.update_pie_chart(app)
-    if len(app.cats) == 0:
+    if len(app.wedges) == 0:
         pie_changes.reset_pie(app)
         buttons.update_main_button(app)

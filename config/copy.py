@@ -1,12 +1,12 @@
 from config import base
 
 
-total_tally = "Total items:"
+total_count = "Total count:"
 
 menus = {
     'file': 'File',
     'new_pie': 'New',
-    'new_cat': 'Add slice',
+    'new_wedge': 'Add wedge',
     'save_pie': 'Save',
     'open_pie': 'Open',
     'exit': 'Exit',
@@ -20,7 +20,7 @@ menus = {
 
 accelerators = {
     'new_pie': 'Ctrl+N',
-    'new_cat': 'Ctrl+L',
+    'new_wedge': 'Ctrl+L',
     'save_pie': 'Ctrl+S',
     'open_pie': 'Ctrl+O',
     'rename_pie': 'Ctrl+R',
@@ -30,11 +30,11 @@ accelerators = {
 
 buttons = {
     'new_pie': 'New Pie',
-    'new_cat': 'Add Slice',
+    'new_wedge': 'Add Wedge',
     'submit_pie': 'Create pie',
     'rename_pie': 'Rename pie',
-    'submit_cat': 'Add slice',
-    'delete_cat': 'x',
+    'submit_wedge': 'Add wedge',
+    'delete_wedge': 'x',
     'plus': '+1',
     'minus': '-1',
 }
@@ -52,7 +52,7 @@ confirms = {
 box_labels = {
     'max_length': '\nMax. length: 25 characters',
     'new_pie': 'Give your new pie chart a title.',
-    'new_cat': 'Give your new slice a name.',
+    'new_wedge': 'Give your new wedge a name.',
     'rename_pie': 'Rename the title of your pie chart.',
 }
 
@@ -69,14 +69,19 @@ warning_box = 'Oops'
 warnings = {
     'empty_pie': 'This pie chart needs a title.',
     'too_long': 'This name cannot exceed 25 characters.',
-    'repeated_cat': 'This name is taken by another slice.',
-    'empty_cat': 'This slice needs a name.',
-    'too_many_cats': 'You can only add up to six slices.',
+    'repeated_wedge': 'This name is taken by another wedge.',
+    'empty_wedge': 'This wedge needs a name.',
+    'too_many_wedges': 'You can only add up to six wedges.',
     'no_data': 'There is no data to save yet. Add some content before saving.',
 }
 
 error_box = 'Uh-oh'
 errors = {
     'not_found': 'File not found.',
-    'not_json': 'Invalid JSON file.',
+    'invalid_json': 'Invalid JSON file.',
+    'duplicate_wedges': 'Duplicate wedge names found.',
 }
+
+def value_error_message(field_name, data_type):
+    """Generate an error message for invalid JSON files."""
+    return f"Invalid or missing '{field_name}' key in loaded data: Expecting a {data_type.__name__}."

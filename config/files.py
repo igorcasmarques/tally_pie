@@ -1,11 +1,14 @@
 from tkinter import filedialog
 import json
 
-from config import messages, pie_changes
-from config.cats import Cat
+from config import messages, pie_changes, copy
+from widgets.wedges import Wedge
 from widgets import buttons
 
-def save_file(title, cat_data, filename=None):
+
+# SAVING
+
+def save_file(title, wedge_data, filename=None):
     """Save session data to a JSON file."""
     if filename is None:
         filename = filedialog.asksaveasfilename(
@@ -17,11 +20,14 @@ def save_file(title, cat_data, filename=None):
 
         save_data = {
             "title": title,
-            "categories": [{'cat_name': cat.cat_name, 'tally': cat.tally} for cat in cat_data]
+            "wedges": [{'name': wedge.name, 'size': wedge.size} for wedge in wedge_data]
         }
 
         with open(filename, 'w') as f:
             json.dump(save_data, f, indent=4)
+
+
+# LOADING
 
 def load_pie_chart(app):
     """Load a pie chart and update all necessary widgets."""
@@ -40,20 +46,20 @@ def load_file(filename, app):
     data = load_saved_data(filename)
     if data is not None:
         # Clear current session
-        if app.cats:
-            for cat in app.cats:
-                cat.frame.destroy()
-            app.cats.clear()
+        if app.wedges:
+            for wedge in app.wedges:
+                wedge.frame.destroy()
+            app.wedges.clear()
 
         # Load the existing session
         app.pie_chart.title = data['title']
-        for cat_data in data['categories']:
-            cat = Cat(app.master, app)
-            cat.cat_name = cat_data['cat_name']
-            cat.tally = cat_data['tally']
-            cat.label.config(text=cat.cat_name)
-            cat.tally_label.config(text=cat.tally)
-            app.cats.append(cat)
+        for wedge_data in data['wedges']:
+            wedge = Wedge(app.master, app)
+            wedge.name = wedge_data['name']
+            wedge.size = wedge_data['size']
+            wedge.label.config(text=wedge.name)
+            wedge.size_label.config(text=wedge.size)
+            app.wedges.append(wedge)
 
 def load_saved_data(filename):
     """Load session data from a JSON file."""
@@ -64,5 +70,4 @@ def load_saved_data(filename):
     except FileNotFoundError:
         messages.error_box('not_found')
     except json.JSONDecodeError:
-        messages.error_box('not_json')
-
+        messages.error_box('invalid_json')

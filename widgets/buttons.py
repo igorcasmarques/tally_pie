@@ -10,10 +10,10 @@ class Button(tk.Button):
     def __init__(self, master, text, command):
         super().__init__(master, text=text, command=command)
 
-class TallyButton(Button):
-    """Parent button for the a category's tally buttons."""
-    def __init__(self, master, tally, text, command):
-        self.tally = tally
+class SizeButton(Button):
+    """Parent button for a wedge's size buttons."""
+    def __init__(self, master, size, text, command):
+        self.size = size
         super().__init__(master, text=text, command=command)
 
 
@@ -31,85 +31,85 @@ class NewPieButton(Button):
         """Create a new pie chart with a button."""
         commands.create_new_pie(self.master, self.app, button=Button)
 
-class NewCatButton(Button):
-    """Button that adds a new tally category."""
+class NewWedgeButton(Button):
+    """Button that adds a new wedge."""
     def __init__(self, master, app):
-        super().__init__(master, text=copy.buttons['new_cat'], command=self.new_cat)
+        super().__init__(master, text=copy.buttons['new_wedge'], command=self.new_wedge)
         self.app = app
         self.grid(row=2, column=0)
         self.configure(bg='light yellow')
 
-    def new_cat(self):
-        """Create a new tally category with a button."""
-        commands.create_new_cat(self.master, self.app, button=Button)
+    def new_wedge(self):
+        """Create a new wedge with a button."""
+        commands.create_new_wedge(self.master, self.app, button=Button)
 
 def create_main_button(app):
     """Choose the main button on the app's startup."""
-    app.new_cat_button.grid_forget()
+    app.new_wedge_button.grid_forget()
     app.new_pie_button.grid(row=2, column=0)
 
 def update_main_button(app):
     """Determine which button should be shown below the pie chart."""
     pie_button = app.new_pie_button
-    cat_button = app.new_cat_button
+    wedge_button = app.new_wedge_button
     
-    if len(app.cats) >= 6:
+    if len(app.wedges) >= 6:
         pie_button.grid_forget()
-        cat_button.grid_forget() 
+        wedge_button.grid_forget() 
     elif app.pie_chart.title:
         pie_button.grid_forget()
-        cat_button.grid(row=2, column=0)
+        wedge_button.grid(row=2, column=0)
     else:
-        cat_button.grid_forget()
+        wedge_button.grid_forget()
         pie_button.grid(row=2, column=0)
 
-def update_new_cat_button(app):
-    """Set the visibility of the new_cat button."""
-    if len(app.cats) >= 6:
-        app.new_cat_button.grid_forget()
+def update_new_wedge_button(app):
+    """Set the visibility of the new_wedge button."""
+    if len(app.wedges) >= 6:
+        app.new_wedge_button.grid_forget()
     else:
-        app.new_cat_button.grid(row=2, column=0)
+        app.new_wedge_button.grid(row=2, column=0)
 
 
-# CATEGORY FRAME BUTTONS
+# WEDGE FRAME BUTTONS
 
-class PlusButton(TallyButton):
-    """Button that increments 1 to a tally category in the pie chart."""
-    def increment_tally(self):
-        self.tally.tally += 1
-        self.tally.tally_label.config(text=self.tally.tally)
-        pie_changes.update_pie_chart(app=self.tally.app)
+class PlusButton(SizeButton):
+    """Button that increments 1 to a wedge."""
+    def increment_size(self):
+        self.size.size += 1
+        self.size.size_label.config(text=self.size.size)
+        pie_changes.update_pie_chart(app=self.size.app)
 
-    def __init__(self, master, tally):
+    def __init__(self, master, size):
         super().__init__(
-            master, tally, text=copy.buttons['plus'], command=self.increment_tally)
+            master, size, text=copy.buttons['plus'], command=self.increment_size)
         self.grid(row=0, column=2, padx=5, pady=5)
         pale_blue = '#d0fefe'
         self.configure(bg=pale_blue)
     
-class MinusButton(TallyButton):
-    """Button that decrements 1 from a tally category in the pie chart."""
-    def decrement_tally(self):
-        if self.tally.tally > 0:
-            self.tally.tally -= 1
-            self.tally.tally_label.config(text=self.tally.tally)
-            pie_changes.update_pie_chart(app=self.tally.app)
+class MinusButton(SizeButton):
+    """Button that decrements 1 from a wedge."""
+    def decrement_size(self):
+        if self.size.size > 0:
+            self.size.size -= 1
+            self.size.size_label.config(text=self.size.size)
+            pie_changes.update_pie_chart(app=self.size.app)
 
-    def __init__(self, master, tally):
+    def __init__(self, master, size):
         super().__init__(
-            master, tally, text=copy.buttons['minus'], command=self.decrement_tally)
+            master, size, text=copy.buttons['minus'], command=self.decrement_size)
         self.grid(row=0, column=3, padx=5, pady=5)
         pale_pink = '#ffcfdc'
         self.configure(bg=pale_pink)
  
-class DeleteCatButton(Button):
-    """Button that deletes a tally category."""
-    def __init__(self, master, cat):
-        super().__init__(master, text=copy.buttons['delete_cat'], command=self.delete_cat)
-        self.cat = cat
+class DeleteWedgeButton(Button):
+    """Button that deletes a wedge."""
+    def __init__(self, master, wedge):
+        super().__init__(master, text=copy.buttons['delete_wedge'], command=self.delete_wedge)
+        self.wedge = wedge
         self.grid(row=0, column=4, padx=(5, 10), pady=5, sticky="e")
     
-    def delete_cat(self):
-        """Delete a category with a button."""
-        commands.delete_cat(self, self.cat)
+    def delete_wedge(self):
+        """Delete a wedge with a button."""
+        commands.delete_wedge(self, self.wedge)
     

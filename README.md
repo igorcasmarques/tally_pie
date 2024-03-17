@@ -17,7 +17,7 @@ This introductory section contains information about the following topics:
 **Developed by**: [Mudpuppy (Ottawa, Canada)](www.igormarques.ca)  
 **Current version**: 0.1.0 (Alpha)
 
-Tally Pie is an [open-source](LICENSE.md) desktop app for counting and categorizing content with a dynamic pie chart. You can create pie charts with up to six slices very quickly with Tally Pie's simple user interface (UI). As you increment or decrement slices, the pie chart changes in real-time to reflect the evolving sizes of slices.
+Tally Pie is an [open-source](LICENSE.md) desktop app for counting and categorizing content with a dynamic pie chart. You can create pie charts with up to six wedges very quickly with Tally Pie's simple user interface (UI). As you increment or decrement wedges, the pie chart changes in real-time to reflect the evolving sizes of wedges.
 
 Tally Pie is great for conducting quick ad hoc surveys, like:
 
@@ -75,11 +75,11 @@ The table below details the content of the following four sections of this guide
       <td>
         <ol>
           <li><b>Menu bar</b>: Has three menus (File, Edit, and Help) with the commands that enable you to create, edit, and erase pie charts.</li>
-          <li><b>Total items count</b>: Displays the sum of the sizes of all slices in the pie chart.</li>
+          <li><b>Total items count</b>: Displays the sum of the sizes of all wedges in the pie chart.</li>
           <li><b>Chart title</b>: Displays the title you give a pie chart when you create it. You can rename the pie chart and change this title at any time.
-          <li><b>Pie chart area</b>: Displays the app's dynamic pie chart, which is updated each time you change the size of a slice.</li>
-          <li><b>Main button</b>: Has two functions: when there is no pie chart, it says <b>New Pie</b> and enables you to create a new pie chart; when there is a pie chart, it says <b>Add Slice</b> and enables you to add a new slice to the pie chart.</li>
-          <li><b>Slice label</b>: Displays a slice's name and size and has three buttons: increment the slice, decrement the slice, and remove the slice.</li>
+          <li><b>Pie chart area</b>: Displays the app's dynamic pie chart, which is updated each time you change the size of a wedge.</li>
+          <li><b>Main button</b>: Has two functions: when there is no pie chart, it says <b>New Pie</b> and enables you to create a new pie chart; when there is a pie chart, it says <b>Add Wedge</b> and enables you to add a new wedge to the pie chart.</li>
+          <li><b>Wedge label</b>: Displays a wedge's name and size and has three buttons: increment the wedge, decrement the wedge, and remove the wedge.</li>
         </ol>
       </td>
     </tr>
@@ -150,17 +150,17 @@ This topic will show you how:
 
 ## Using Tally Pie
 
-This section will show you how to use Tally Pie to create pie charts, add slices, change the sizes of slices, and save your work. Because of Tally Pie's intuitive UI, you can start surveying things within seconds of opening the app.
+This section will show you how to use Tally Pie to create pie charts, add wedges, change the sizes of wedges, and save your work. Because of Tally Pie's intuitive UI, you can start surveying things within seconds of opening the app.
 
 This section has three topics:
 
 - [Managing pie charts](#managing-pie-charts)
-- [Managing slices](#managing-slices)
+- [Managing wedges](#managing-wedges)
 - [Managing pie chart files](#managing-pie-chart-files)
 
 ### Managing pie charts
 
-Tally Pie enables you to create and edit pie charts so you can count and categorize things visually. Pie charts are graphs that illustrate mathematical proportions using slices on a circle. Many people like pie charts because they make it easy to see how the size of a slice relates to the other slices and to the pie as a whole.
+Tally Pie enables you to create and edit pie charts so you can count and categorize things visually. Pie charts are graphs that illustrate mathematical proportions using wedges on a circle. Many people like pie charts because they make it easy to see how the size of a wedge relates to the other wedges and to the pie as a whole.
 
 This topic will show you how:
 
@@ -197,44 +197,44 @@ This topic will show you how:
 
 > :book: You can also press Ctrl+W to erase a new pie chart.
 
-### Managing slices
+### Managing wedges
 
-After creating and naming your pie chart, you need to add slices to it. Each time you increment or decrement a slice, the pie chart changes to reflect the new proportions between slices. Since the usefulness of a pie chart decreases the more slices it has, you can only add up to six slices in Tally Pie.
+After creating and naming your pie chart, you need to add wedges to it. Each time you increment or decrement a wedge, the pie chart changes to reflect the new proportions between wedges. Since the usefulness of a pie chart decreases the more wedges it has, you can only add up to six wedges in Tally Pie.
 
 This topic will show you how:
 
-- [To add a slice](#to-add-a-slice)
-- [To increment a slice](#to-increment-a-slice)
-- [To decrement a slice](#to-decrement-a-slice)
-- [To remove a slice](#to-remove-a-slice)
+- [To add a wedge](#to-add-a-wedge)
+- [To increment a wedge](#to-increment-a-wedge)
+- [To decrement a wedge](#to-decrement-a-wedge)
+- [To remove a wedge](#to-remove-a-wedge)
 
-#### To add a slice
+#### To add a wedge
 
-1.	Select **Edit > Add slice**.
-2.	On the dialogue box, enter a name for your new slice.
-3.	Select **Add slice**.
+1.	Select **Edit > Add wedge**.
+2.	On the dialogue box, enter a name for your new wedge.
+3.	Select **Add wedge**.
 
-<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-5.png" alt="Screenshot of Tally Pie's UI with the Edit menu expanded, the Add slice menu item highlighted, and the slice creation dialogue box open." width="200" height ="auto">
+<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-5.png" alt="Screenshot of Tally Pie's UI with the Edit menu expanded, the Add wedge menu item highlighted, and the wedge creation dialogue box open." width="200" height ="auto">
 
-> :book: You can also press Ctrl+L or select **Add Slice** below the pie chart to add a slice.
+> :book: You can also press Ctrl+L or select **Add Wedge** below the pie chart to add a wedge.
 
-#### To increment a slice
+#### To increment a wedge
 
-- Select **+1** on the slice’s label.
+- Select **+1** on the wedge’s label.
 
-<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-6.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a slice labe." width="200" height ="auto">
+<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-6.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a wedge labe." width="200" height ="auto">
 
-#### To decrement a slice
+#### To decrement a wedge
 
-- Select **-1** on the slice’s label.
+- Select **-1** on the wedge’s label.
 
-<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-7.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a slice labe." width="200" height ="auto">
+<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-7.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a wedge label." width="200" height ="auto">
 
-#### To remove a slice
+#### To remove a wedge
 
-- Select **x** on the slice’s label.
+- Select **x** on the wedge’s label.
 
-<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-8.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a slice labe." width="200" height ="auto">
+<img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-8.png" alt="Screenshot of Tally Pie's UI with the a red circle around the +1 button on a wedge labe." width="200" height ="auto">
 
 ### Managing pie chart files
 
@@ -288,35 +288,35 @@ This section contains a list of error and warning messages you may encounter whi
     </tr>
     <tr>
       <td width="200">
-        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-12.png" alt="Screenshot of a warning message that says, This slice needs a name." width="200" height ="auto">
+        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-12.png" alt="Screenshot of a warning message that says, This wedge needs a name." width="200" height ="auto">
       </td>
       <td>:warning: Warning</td>
-      <td>You tried creating a slice but forgot to give it a name.</td>
-      <td>Enter a name for your slice and select <b>Add slice</b>.</td>
+      <td>You tried creating a wedge but forgot to give it a name.</td>
+      <td>Enter a name for your wedge and select <b>Add wedge</b>.</td>
     </tr>
     <tr>
       <td width="200">
         <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-13.png" alt="Screenshot of a warning message that says, This name cannot exceed 25 characters." width="200" height ="auto">
       </td>
       <td>:warning: Warning</td>
-      <td>You tried giving a pie chart or a slice a very long name.</td>
-      <td>Keep the names of your pie charts or slices under 26 characters.</td>
+      <td>You tried giving a pie chart or a wedge a very long name.</td>
+      <td>Keep the names of your pie charts or wedges under 26 characters.</td>
     </tr>
     <tr>
       <td width="200">
-        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-14.png" alt="Screenshot of a warning message that says, This name is taken by another slice." width="200" height ="auto">
+        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-14.png" alt="Screenshot of a warning message that says, This name is taken by another wedge." width="200" height ="auto">
       </td>
       <td>:warning: Warning</td>
-      <td>You tried giving two slices the same name.</td>
-      <td>Give unique names to each of your pie chart's slices.</td>
+      <td>You tried giving two wedges the same name.</td>
+      <td>Give unique names to each of your pie chart's wedges.</td>
     </tr>
     <tr>
       <td width="200">
-        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-15.png" alt="Screenshot of a warning message that says, You can only add up to six slices." width="200" height ="auto">
+        <img src="https://tally-pie.s3.ca-central-1.amazonaws.com/readme-15.png" alt="Screenshot of a warning message that says, You can only add up to six wedges." width="200" height ="auto">
       </td>
       <td>:warning: Warning</td>
-      <td>You tried creating more than six slices.</td>
-      <td>If you need more than six slices, use a bar graph in another app instead.</td>
+      <td>You tried creating more than six wedges.</td>
+      <td>If you need more than six wedges, use a bar graph in another app instead.</td>
     </tr>
     <tr>
       <td width="200">

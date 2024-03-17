@@ -59,7 +59,7 @@ class FileMenu(tk.Menu):
     
     def save_pie(self):
         """Function to handle the 'Save' menu item."""
-        commands.save_pie(title=self.app.pie_chart.title, cat_data=self.app.cats)
+        commands.save_pie(title=self.app.pie_chart.title, wedge_data=self.app.wedges)
     
     def open_pie(self):
         """Function to handle the 'Load' menu item."""
@@ -73,10 +73,10 @@ class EditMenu(tk.Menu):
         self.app = app
         self.name = 'edit'
 
-        self.new_category = self.add_command(
-            label=copy.menus['new_cat'], 
-            command=self.new_cat,
-            accelerator=copy.accelerators['new_cat']
+        self.new_wedge = self.add_command(
+            label=copy.menus['new_wedge'], 
+            command=self.new_wedge,
+            accelerator=copy.accelerators['new_wedge']
         )
         self.add_separator()
         self.rename_pie = self.add_command(
@@ -90,9 +90,9 @@ class EditMenu(tk.Menu):
             accelerator=copy.accelerators['erase_pie']
         )
 
-    def new_cat(self):
-        """Function to handle the 'New category' menu item."""
-        commands.create_new_cat(master=self.master, app=self.app, button=tk.Button)
+    def new_wedge(self):
+        """Function to handle the 'Add wedge' menu item."""
+        commands.create_new_wedge(master=self.master, app=self.app, button=tk.Button)
     
     def rename_pie(self):
         """Function to allow users to rename the current pie chart."""

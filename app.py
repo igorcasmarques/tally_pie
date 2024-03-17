@@ -13,15 +13,15 @@ class App:
         self.master.iconbitmap(paths.app_icon)       
                
         # Main attributes
-        self.cats = []
-        self.total_tally = 0
+        self.wedges = []
+        self.total_count = 0
 
         # Widgets
         self.pie_chart = pies.PieChart(master)
-        self.total_tally_label = labels.TotalTallyLabel(master, text=self.total_tally)
+        self.total_count_label = labels.TotalCountLabel(master, text=self.total_count)
         self.menu = menus.MainMenu(master, self)
         self.new_pie_button = buttons.NewPieButton(master, self)
-        self.new_cat_button = buttons.NewCatButton(master, self)
+        self.new_wedge_button = buttons.NewWedgeButton(master, self)
         buttons.create_main_button(self)
 
         # Key binds

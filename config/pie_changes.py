@@ -3,44 +3,44 @@ from widgets import buttons
 
 
 def update_pie_chart(app):
-    """Update the pie chart each time a category is tallied up or down."""
-    calculate_total_tally(app)
-    calculate_tally_percentages(app)
+    """Update the pie chart each time a wedge's size changes."""
+    calculate_total_count(app)
+    calculate_wedge_percentages(app)
     draw_pie_chart(app)
     buttons.update_main_button(app)
 
-def calculate_total_tally(app):
-    """Update the total tally of the app."""
-    app.total_tally = sum(cat.tally for cat in app.cats)
-    app.total_tally_label.config(text=f"{copy.total_tally} {app.total_tally}")
+def calculate_total_count(app):
+    """Update the total count of the pie chart."""
+    app.total_count = sum(wedge.size for wedge in app.wedges)
+    app.total_count_label.config(text=f"{copy.total_count} {app.total_count}")
 
-def calculate_tally_percentages(app):
-    """Update the tally percentages of all category."""
-    if app.total_tally != 0:
-        for cat in app.cats:
-            cat.tally_percent = 100 * (cat.tally / app.total_tally)
+def calculate_wedge_percentages(app):
+    """Update the size percentages of all wedges."""
+    if app.total_count != 0:
+        for wedge in app.wedges:
+            wedge.percentage = 100 * (wedge.size / app.total_count)
 
 def draw_pie_chart(app):
-    """Redraw the pie chart each time a category is tallied up or down."""
+    """Redraw the pie chart each time a wedge's size changes."""
     pie_chart = app.pie_chart
     title = pie_chart.title
     pie_chart_labels = []
     pie_chart_sizes = []
     
     # Reset pie chart
-    if app.total_tally == 0:
+    if app.total_count == 0:
         draw_empty_pie(app, pie_title=title)
         return
 
     # Redraw pie chart
-    for cat in app.cats:
-        if cat.tally != 0:
-            pie_chart_labels.append(cat.cat_name)
-            pie_chart_sizes.append(cat.tally_percent)
+    for wedge in app.wedges:
+        if wedge.size != 0:
+            pie_chart_labels.append(wedge.name)
+            pie_chart_sizes.append(wedge.percentage)
 
     pie_chart.ax.clear()
 
-    if app.cats:
+    if app.wedges:
         pie_chart.ax.pie(
             pie_chart_sizes, 
             labels=pie_chart_labels, 
@@ -80,12 +80,12 @@ def change_title(master, app, name, window, event=None):
         name.focus()
 
 def reset_pie(app, pie_title=''):
-    """Clear all categories of an existing pie chart."""
-    cats = app.cats
-    if cats:
-        for cat in cats:
-            cat.frame.destroy()
-        cats.clear()
+    """Clear all wedges of an existing pie chart."""
+    wedges = app.wedges
+    if wedges:
+        for wedge in wedges:
+            wedge.frame.destroy()
+        wedges.clear()
     draw_empty_pie(app, pie_title)
 
 def draw_empty_pie(app, pie_title='', autopct=''):
