@@ -9,6 +9,7 @@ menus = {
     'new_wedge': 'Add wedge',
     'save_pie': 'Save',
     'open_pie': 'Open',
+    'export_pie': 'Export',
     'exit': 'Exit',
     'edit': 'Edit',
     'rename_pie': 'Rename pie',
@@ -23,6 +24,7 @@ accelerators = {
     'new_wedge': 'Ctrl+L',
     'save_pie': 'Ctrl+S',
     'open_pie': 'Ctrl+O',
+    'export_pie': 'Ctrl+E',
     'rename_pie': 'Ctrl+R',
     'erase_pie': 'Ctrl+W',
     'exit': 'Alt+F4',
@@ -63,6 +65,7 @@ info = {
     'version': f'Version: {base.version_number} (Alpha)',
     'licence': 'Licence: GNU General Public License v3.0',
     'author': 'Developed by Mudpuppy (Ottawa, Canada)',
+    'export_successful': 'The chart was exported successfully.',
 }
 
 warning_box = 'Oops'
@@ -73,6 +76,7 @@ warnings = {
     'empty_wedge': 'This wedge needs a name.',
     'too_many_wedges': 'You can only add up to six wedges.',
     'no_data': 'There is no data to save yet. Add some content before saving.',
+    'no_export': 'There is no data to export yet. Add some content before exporting.',
 }
 
 error_box = 'Uh-oh'
@@ -80,6 +84,7 @@ errors = {
     'not_found': 'File not found.',
     'invalid_json': 'Invalid JSON file.',
     'duplicate_wedges': 'Duplicate wedge names found.',
+    'export_fail': 'Something went wrong. Chart export failed.',
 }
 
 def value_error_message(field_name, data_type):

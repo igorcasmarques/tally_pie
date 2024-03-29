@@ -1,4 +1,4 @@
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import json
 
 from config import messages, pie_changes, copy
@@ -71,3 +71,21 @@ def load_saved_data(filename):
         messages.error_box('not_found')
     except json.JSONDecodeError:
         messages.error_box('invalid_json')
+
+
+# EXPORTING
+
+def export_pie_chart(app):
+    """Export a pie chart as an image."""
+    file_path = filedialog.asksaveasfilename(
+        defaultextension=".png", 
+        filetypes=[("PNG files", "*.png")]
+    )
+    if not file_path:
+        return
+
+    try:
+        app.pie_chart.fig.savefig(file_path, dpi=100)
+        messages.info_box(copy.info['export_successful'])
+    except Exception:
+        messages.error_box('export_fail')

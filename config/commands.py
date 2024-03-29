@@ -40,6 +40,14 @@ def open_pie(master, app, button):
     else:
         files.load_pie_chart(app)
 
+## EXPORT PIE
+def export_pie(app):
+    """Export a pie chart as an image."""
+    if app.pie_chart.title and app.wedges:
+        files.export_pie_chart(app)
+    else:
+        messages.warning_box('no_export')
+
 
 # EDIT MENU
 

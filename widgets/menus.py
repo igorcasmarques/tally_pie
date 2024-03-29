@@ -46,6 +46,12 @@ class FileMenu(tk.Menu):
             accelerator=copy.accelerators['open_pie']
         )
         self.add_separator()
+        self.export_pie_chart = self.add_command(
+            label=copy.menus['export_pie'],
+            command=self.export_pie,
+            accelerator=copy.accelerators['export_pie']
+        )
+        self.add_separator()
         self.exit = self.add_command(
             label=copy.menus['exit'],
             command=master.quit,
@@ -64,6 +70,10 @@ class FileMenu(tk.Menu):
     def open_pie(self):
         """Function to handle the 'Load' menu item."""
         commands.open_pie(master=self.master, app=self.app, button=tk.Button)
+    
+    def export_pie(self):
+        """Function to handle the 'Export' menu item."""
+        commands.export_pie(app=self.app)
     
 
 class EditMenu(tk.Menu):
